@@ -12,6 +12,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSliderModule } from '@angular/material/slider';
+import { HttpClientModule } from '@angular/common/http';
+import { baseURL } from './shared/baseurl';
+
 
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { HeaderComponent } from './header/header.component';
@@ -60,6 +64,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
+    HttpClientModule,
     MatFormFieldModule, 
     MatInputModule,
     MatCheckboxModule,
@@ -69,7 +74,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatSlideToggleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSliderModule
   ],
   entryComponents: [
   LoginComponent
@@ -77,7 +83,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   providers: [
   DishService, 
   PromotionService, 
-  LeaderService
+  LeaderService,
+  {provide: 'BaseURL', useValue: baseURL}
   ],
   bootstrap: [AppComponent]
 })
