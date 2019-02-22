@@ -15,7 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSliderModule } from '@angular/material/slider';
 import { HttpClientModule } from '@angular/common/http';
 import { baseURL } from './shared/baseurl';
-
+import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { HeaderComponent } from './header/header.component';
@@ -84,6 +84,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   DishService, 
   PromotionService, 
   LeaderService,
+  ProcessHTTPMsgService,
   {provide: 'BaseURL', useValue: baseURL}
   ],
   bootstrap: [AppComponent]
