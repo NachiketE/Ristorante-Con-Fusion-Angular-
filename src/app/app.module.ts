@@ -43,6 +43,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HighlightDirective } from './directives/highlight.directive';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { HighlightDirective } from './directives/highlight.directive';
     MatSelectModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
+    HttpModule,
     MatSliderModule
   ],
   entryComponents: [
