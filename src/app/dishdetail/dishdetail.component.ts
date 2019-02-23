@@ -14,15 +14,16 @@ import { Comment } from '../shared/feedback';
 })
 export class DishdetailComponent implements OnInit {
  
-  feedbackForm: FormGroup;
   dish: Dish;
   dishIds: string[];
   errMess: string;
   prev: string;
   next: string;
+  comment: Comment;
+  commentForm: FormGroup;
+  dishcopy: Dish;
 
-  @ViewChild('fform') feedbackFormDirective;
-
+  @ViewChild('cform') commentFormDirectives;
 
     formErrors = {
     'author': '',
@@ -41,29 +42,32 @@ export class DishdetailComponent implements OnInit {
     },
     };
 
-  constructor(private dishService: DishService, private route: ActivatedRoute, private  location:Location, private fb: FormBuilder,
-  @Inject('BaseURL') private BaseURL) {
-  this.createForm();
-   }
+  constructor(private dishService: DishService, 
+  private route: ActivatedRoute, 
+  private  location: Location,
+   private fb: FormBuilder,
+  @Inject('BaseURL') private BaseURL) {   }
 
   ngOnInit() {
+    this.createForm();
 
     this.dishService.getDishIds()
     .subscribe(dishIds => this.dishIds = dishIds);
 
-    this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-    .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); },
+    this.route.params
+      .pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
+    .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); },
     errmess => this.errMess = <any>errmess );
   }
 
  
   createForm() {
-      this.feedbackForm = this.fb.group({
+      this.commentForm = this.fb.group({
       author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
-      rating: '5',
+      rating: 5,
       comment: ['', [Validators.required, Validators.minLength(2)]]
     });
-    this.feedbackForm.valueChanges
+    this.commentForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
 
     this.onValueChanged(); // (re)set validation messages now
@@ -71,8 +75,8 @@ export class DishdetailComponent implements OnInit {
   
 
    onValueChanged(data?: any) {
-    if (!this.feedbackForm) { return; }
-    const form = this.feedbackForm;
+    if (!this.commentForm) { return; }
+    const form = this.commentForm;
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {
         // clear previous error message (if any)
@@ -90,21 +94,23 @@ export class DishdetailComponent implements OnInit {
     }
   }
 
-
-
-
-
   onSubmit() {
-    var d = new Date();
-    var n = d.toISOString();
-    this.feedbackForm.value.date = n;
-    this.dish.comments.push(this.feedbackForm.value); 
-    this.feedbackForm.reset({
+    this.comment = this.commentForm.value;
+    this.comment.date = new Date().toISOString();
+    console.log(this.comment);
+    this.dishcopy.comments.push(this.comment);
+    this.dishService.putDish(this.dishcopy)
+    .subscribe(dish =>{
+      this.dish = dish; this.dishcopy = dish;
+    },
+     errmess => { this.dish = null; this.dishcopy = null; this.errMess = <any>errmess; });  
+    );
+    this.commentFormDirective.resetForm();
+    this.commentForm.reset({
       author: '',
       rating: 5,
       comment: '',
     });
-    this.feedbackFormDirective.resetForm();
   }
 
 
