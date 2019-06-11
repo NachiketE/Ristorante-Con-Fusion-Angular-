@@ -56,10 +56,10 @@
 
   <div fxFlex>
     <h2>Corporate Leadership</h2>
-    <mat-list *ngIf="leaders" style="margin-left: 10px;">
+    <mat-list *ngIf="leaders" style="margin-left: 10px;"  [@expand]>
     <mat-grid-list cols="1" rowHeight="150px" >
     <mat-grid-tile *ngFor = "let leader of leaders" style="font-size: 18px;" >
-      <img matListAvatar src={{leader.image}} alt={{leader.name}} style="border-radius: 50%;" fxFlex="4"> '
+      <img matListAvatar src="{{BaseURL + leader.image}}" alt={{leader.name}} style="border-radius: 50%;" fxFlex="4"> '
       <p matLine style="margin-left: 20px;"><span> {{leader.name}}  {{leader.abbr}} </span><br>
        <span>{{leader.designation}}</span><br>
        <span>{{leader.description}}</span> </p>
