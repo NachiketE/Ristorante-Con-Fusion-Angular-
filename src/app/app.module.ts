@@ -26,7 +26,7 @@ import { ContactComponent } from './contact/contact.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { RestangularModule } from './services/feedback.service';
+import { RestangularModule, Restangular } from 'ngx-restangular';
 
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
@@ -40,7 +40,7 @@ import { LoginComponent } from './login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -71,7 +71,7 @@ import { HttpModule } from '@angular/http';
     MatCardModule,
     MatButtonModule,
     HttpClientModule,
-    MatFormFieldModule, 
+    MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
     AppRoutingModule,
@@ -89,8 +89,8 @@ import { HttpModule } from '@angular/http';
   LoginComponent
   ],
   providers: [
-  DishService, 
-  PromotionService, 
+  DishService,
+  PromotionService,
   LeaderService,
   ProcessHTTPMsgService,
   FeedbackService,
